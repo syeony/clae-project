@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>voucher enroll</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <!--jquery library추가-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>더 클래 바우처 등록페이지</h2>
+
+    <!-- <form action="/asset" method=post> -->
+      <label for="fname" class="form-label">인증서:</label><br>
+      <input type="text" id="cert" name="key" value="" class="form-control"><br>
+      <label for="lname" class="form-label">바우처 ID:</label><br>
+      <input type="text" id="vid" name="lname" value="" class="form-control"><br>
+      <label for="fname" class="form-label"></label>판매자이름:</label><br>
+      <input type="text" id="owner" name="key" value="" class="form-control"><br>
+      <label for="lname" class="form-label">아카데미 ID:</label><br>
+      <input type="text" id="academyid" name="value" value="" class="form-control"><br>
+      <label for="lname" class="form-label">기간:</label><br>
+      <input type="text" id="date" name="value" value="" class="form-control"><br><br>
+      <button class="btn btn-outline-warning" id="gen-btn">등록하기</button>
+    <!-- </form>  -->
+  </div>
+  <div class="container">
+    <p id="result"></p>
+  </div>
+</body>
+<script>
+  //버튼클릭->ID와 PASSWORD를 가져와서 /admin POST 요청->Response를 화면에 출력
+  $("#gen-btn").click(()=>{
+  const userid=$("#cert").val();
+  const vid=$("#vid").val();
+  const owner=$("#owner").val();
+  const academyid=$("#academyid").val();
+  const date=$("#date").val();
+  
+  console.log(userid, vid , owner, academyid, date);
+  
+  $.post("/voucher",{userid, vid , owner, academyid, date},(data)=>{
+      console.log(data.result);
+
+      $("result").empty();
+      const resu=JSON.stringify(data);
+      $("#result").append(resu);
+  });
+});
+</script>
+</html>
